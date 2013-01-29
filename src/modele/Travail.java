@@ -15,7 +15,7 @@ public class Travail extends Prediction{
     }
     
     public Travail(int valeur, String contenu) {
-        super(valeur, contenu);
+        super(valeur, contenu, "Travail");
     }
 
     

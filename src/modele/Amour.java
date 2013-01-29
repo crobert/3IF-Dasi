@@ -15,7 +15,7 @@ public class Amour extends Prediction{
     }
     
     public Amour(int valeur, String contenu) {
-        super(valeur, contenu);
+        super(valeur, contenu, "Amour");
     }
 
     

@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class Employe {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String code;
     @OneToMany(cascade=CascadeType.ALL)

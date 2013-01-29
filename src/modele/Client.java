@@ -4,6 +4,8 @@ import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -15,6 +17,7 @@ import javax.persistence.OneToMany;
 public class Client {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String numClient;
     private String nom;
     private String prenom;
