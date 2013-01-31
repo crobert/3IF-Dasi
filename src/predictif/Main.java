@@ -4,10 +4,9 @@
  */
 package predictif;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import modele.Client;
+import modele.Medium;
+import service.Voyance;
+
 
 /**
  *
@@ -20,17 +19,12 @@ public class Main {
      */
     public static void main(String[] args) {
         
-       EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("$objectdb/db/points.odb");
-        EntityManager em = emf.createEntityManager();
-        
-       em.getTransaction().begin();
-  
-        Client c = new Client();
-        em.persist(c);
-
-        em.getTransaction().commit();
-        
-        
+        System.out.println("hello");
+        Medium medium = new Medium("Toto");
+        Medium medium2 = new Medium("Dr T");
+        System.out.println(medium.getNom());
+        Voyance serviceVoyance = new Voyance();
+        serviceVoyance.CreerMedium(medium);
+        serviceVoyance.CreerMedium(medium2);
     }
 }

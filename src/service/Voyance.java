@@ -1,8 +1,11 @@
 package service;
 
+import dao.JpaUtil;
+import dao.MediumDao;
 import modele.Amour;
 import modele.Employe;
 import modele.Horoscope;
+import modele.Medium;
 import modele.Prediction;
 import modele.Sante;
 import modele.Travail;
@@ -14,8 +17,21 @@ import modele.Travail;
  */
 public class Voyance {
     //private EmployeDao employeDao;
-    
+    private MediumDao mediumDao;
 
+    public Voyance() {
+        this.mediumDao = new MediumDao();
+    }
+
+    public Boolean CreerMedium(Medium medium){
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        mediumDao.Create(medium);
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return false;
+    }
+    
     public Boolean RemplirBase(){
         
         return false;
