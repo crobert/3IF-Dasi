@@ -16,11 +16,10 @@ public class MediumDao {
     public MediumDao() {
     }
     
-    public Boolean Create (Medium medium)
+public Boolean Create (Medium m)
     {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        em.persist(medium);
+        em.persist(m);
         return true;
     }
-    
 }

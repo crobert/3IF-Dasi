@@ -1,14 +1,12 @@
 package service;
 
+import dao.ClientDao;
 import dao.JpaUtil;
+import dao.EmployeDao;
 import dao.MediumDao;
-import modele.Amour;
 import modele.Employe;
 import modele.Horoscope;
-import modele.Medium;
-import modele.Prediction;
-import modele.Sante;
-import modele.Travail;
+
 
 
 /**
@@ -16,37 +14,38 @@ import modele.Travail;
  * @author crobert
  */
 public class Voyance {
-    //private EmployeDao employeDao;
+    private EmployeDao employeDao;
+    private ClientDao clientDao;
     private MediumDao mediumDao;
-
+    
     public Voyance() {
+        this.employeDao = new EmployeDao();
+        this.clientDao = new ClientDao();
         this.mediumDao = new MediumDao();
     }
 
-    public Boolean CreerMedium(Medium medium){
+    public Employe Connexion(String code ){
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
-        mediumDao.Create(medium);
+        Employe e = employeDao.FindEmployeFromCode(code);
         JpaUtil.validerTransaction();
         JpaUtil.fermerEntityManager();
-        return false;
+        return e;       
+    }
+   
+    public boolean AfficherHoroscope(Horoscope horoscope){
+        
+        System.out.println( horoscope.getClient().getPrenom() + " " + horoscope.getClient().getNom());
+        System.out.println( horoscope.getClient().getAdresse());
+        System.out.println( horoscope.getClient().getTelephone());
+        System.out.println( "Votre numéro client ; " + horoscope.getClient().getNumClient());
+        System.out.println( "Voytre signe Astro : " + horoscope.getClient().getSigneAstrologique());
+        //List<Medium> lm = clientDeLemploye.getMediums();
+        //for (Medium mediumDuClient : lm) {
+        //        System.out.println(mediumDuClient.getNom());
+        //System.out.println( horoscope.getClient().getMediums()
+        
+        return true;
     }
     
-    public Boolean RemplirBase(){
-        
-        return false;
-    }
-    public Employe Connexion(String code ){
-        
-        return new Employe();       
-    }
-    public Prediction GetPredictionByGrade( String type, int grade ){
-    
-        return new Travail();  
-    }
-    public Horoscope CreerHoroscope(Travail travail, Sante sante, Amour amour){
-        
-        return new Horoscope();
-    }
-
 }

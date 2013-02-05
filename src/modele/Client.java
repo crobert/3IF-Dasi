@@ -1,33 +1,42 @@
 package modele;
 
-import java.util.GregorianCalendar;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Données client
  * @author crobert
  */
 @Entity
-public class Client {
+public class Client implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String numClient;
     private String nom;
     private String prenom;
     private String adresse;
     private String mail;
+    @Temporal(TemporalType.DATE)
     private GregorianCalendar dateNaissance; 
     private String telephone;
     private String signeAstrologique;
-    @OneToMany(cascade=CascadeType.ALL)
-    private ArrayList<Medium> mediums;
+    @ManyToMany(cascade=CascadeType.ALL)
+    private List<Medium> mediums;
+    @ManyToOne
+    private Employe referant;
    
     /**
      * Constructeurs
@@ -49,7 +58,10 @@ public class Client {
     /**
      * Getters
      */
-    
+    public int getId() {
+        return id;
+    }
+
     public String getAdresse() {
         return adresse;
     }
@@ -62,7 +74,7 @@ public class Client {
         return mail;
     }
 
-    public ArrayList<Medium> getMediums() {
+    public List<Medium> getMediums() {
         return mediums;
     }
 
@@ -80,6 +92,14 @@ public class Client {
 
     public String getTelephone() {
         return telephone;
+    }
+    
+    public Employe getReferant() {
+        return referant;
+    }
+
+    public String getNumClient() {
+        return numClient;
     }
     
    /**
@@ -100,8 +120,8 @@ public class Client {
 
     public void setMediums(ArrayList<Medium> mediums) {
         this.mediums = mediums;
-    }    
-
+    }        
+            
     public void setNom(String nom) {
         this.nom = nom;
     }    
@@ -116,6 +136,14 @@ public class Client {
     
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public void setReferant(Employe referant) {
+        this.referant = referant;
+    }
+
+    public void setNumClient(String numClient) {
+        this.numClient = numClient;
     }
     
    /**
@@ -135,6 +163,5 @@ public class Client {
     public Boolean supprimerMedium(Medium medium) {
         return this.mediums.remove(medium) ;
     }
-    
     
 }

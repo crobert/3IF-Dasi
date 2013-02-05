@@ -1,6 +1,7 @@
 package modele;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -8,26 +9,27 @@ import javax.persistence.*;
  * @author crobert
  */
 @Entity
-public class Employe {
+public class Employe implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Column(unique=true, nullable=false)
     private String code;
     @OneToMany(cascade=CascadeType.ALL)
-    private ArrayList<Client> clients;
+    private List<Client> clients;
 
    /**
      * Constructeurs
      */
     
     public Employe() {
-        this.clients = new ArrayList<Client>();
+//        this.clients = new ArrayList<Client>();
     }
     
     public Employe(String code) {
         this.code = code;
-        this.clients = new ArrayList<Client>();
+//        this.clients = new ArrayList<Client>();
     }
     
     
@@ -39,7 +41,7 @@ public class Employe {
         return code;
     }
     
-    public ArrayList<Client> getClients() {
+    public List<Client> getClients() {
         return clients;
     }
     
@@ -51,7 +53,7 @@ public class Employe {
         this.code = code;
     }
     
-    public void setClients(ArrayList<Client> clients) {
+    public void setClients(List<Client> clients) {
         this.clients = clients;
     }
     

@@ -21,7 +21,7 @@ public class JpaUtil {
      * Nom de l'unité de persistance utilisée par la Factory de Entity Manager.
      * <br/><strong>Vérifier le nom de l'unité de persistance (cf.&nbsp;persistence.xml)</strong>
      */
-    public static final String PERSISTENCE_UNIT_NAME = "Persistance";
+    public static final String PERSISTENCE_UNIT_NAME = "PredictIFPU";
     /**
      * Factory de Entity Manager liée à l'unité de persistance.
      * <br/><strong>Vérifier le nom de l'unité de persistance indiquée dans l'attribut statique PERSISTENCE_UNIT_NAME (cf.&nbsp;persistence.xml)</strong>
