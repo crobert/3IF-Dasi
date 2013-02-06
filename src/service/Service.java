@@ -11,8 +11,10 @@ import dao.MediumDao;
 import dao.PredictionDao;
 import dao.SigneAstralDao;
 import java.util.GregorianCalendar;
+import java.util.List;
 import modele.Client;
 import modele.Employe;
+import modele.Horoscope;
 import modele.Medium;
 import modele.Prediction;
 import modele.SigneAstral;
@@ -64,10 +66,10 @@ public class Service {
         return true;
     }
     
-   public Client FindClientById(int id){
+   public Client FindClientByNumClient(int num){
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
-        Client c = clientDao.getClientById(id);
+        Client c = clientDao.getClientByNum(num);
         JpaUtil.validerTransaction();
         JpaUtil.fermerEntityManager();
         return c;
@@ -126,18 +128,18 @@ public class Service {
         CreerPrediction(new Prediction(1, "Ca va pas super", "Sante"));    
         
         //Création des signes astrologiques
-        CreerSigneAstral(new SigneAstral("Belier", "Mars"));
-        CreerSigneAstral(new SigneAstral("Taureau", "Avril"));
-        CreerSigneAstral(new SigneAstral("Gemeaux", "Mai"));
-        CreerSigneAstral(new SigneAstral("Cancer", "Juin"));
-        CreerSigneAstral(new SigneAstral("Lion", "Juillet"));
-        CreerSigneAstral(new SigneAstral("Vierge", "Août"));
-        CreerSigneAstral(new SigneAstral("Balance", "Septembre"));
-        CreerSigneAstral(new SigneAstral("Scorpion", "Octobre"));
-        CreerSigneAstral(new SigneAstral("Sagittaire", "Novembre"));
-        CreerSigneAstral(new SigneAstral("Capricorne", "Decembre"));
-        CreerSigneAstral(new SigneAstral("Verseau", "Janvier"));
-        CreerSigneAstral(new SigneAstral("Poisson", "Fevrier"));
+        CreerSigneAstral(new SigneAstral("Verseau", "1"));
+        CreerSigneAstral(new SigneAstral("Poisson", "2"));
+        CreerSigneAstral(new SigneAstral("Belier", "3"));
+        CreerSigneAstral(new SigneAstral("Taureau", "4"));
+        CreerSigneAstral(new SigneAstral("Gemeaux", "5"));
+        CreerSigneAstral(new SigneAstral("Cancer", "6"));
+        CreerSigneAstral(new SigneAstral("Lion", "7"));
+        CreerSigneAstral(new SigneAstral("Vierge", "8"));
+        CreerSigneAstral(new SigneAstral("Balance", "9"));
+        CreerSigneAstral(new SigneAstral("Scorpion", "10"));
+        CreerSigneAstral(new SigneAstral("Sagittaire", "11"));
+        CreerSigneAstral(new SigneAstral("Capricorne", "12"));
         
         //Création des mediums
         Medium MAlpha = new Medium("MAlpha");
@@ -223,4 +225,57 @@ public class Service {
         
         return true;
     }
+    
+    public Employe Connexion(String code ){
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        Employe e = employeDao.FindEmployeFromCode(code);
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return e;       
+    }
+   
+    public boolean AfficherHoroscope(Horoscope horoscope){
+        
+        System.out.println( horoscope.getClient().getPrenom() + " " + horoscope.getClient().getNom());
+        System.out.println( horoscope.getClient().getAdresse());
+        System.out.println( horoscope.getClient().getTelephone());
+        System.out.println( "Votre numéro client ; " + horoscope.getClient().getNumClient());
+        System.out.println( "Voytre signe Astro : " + horoscope.getClient().getSigneAstrologique());
+        //List<Medium> lm = clientDeLemploye.getMediums();
+        //for (Medium mediumDuClient : lm) {
+        //        System.out.println(mediumDuClient.getNom());
+        //System.out.println( horoscope.getClient().getMediums()
+        
+        return true;
+    }
+    
+    public Client CreerClient(String nom, String prenom, String adresse, String mail, GregorianCalendar date, String telephone, List<Medium> mediums)
+    {
+        //Récupérer l'employe avec le minimum de Client
+        Employe e = FindEmployeDisponible();
+        String s = CalculAstro(date);
+        //Créer le client 
+        Client c = new Client (nom, prenom, adresse, mail, date, telephone, s, mediums, e);
+        CreerClient(c);
+        UpdateEmploye(e);
+        return null;
+    }
+    
+    public String CalculAstro(GregorianCalendar date )
+    {
+        return signeAstralDao.getSigne(date);
+    }
+    
+    public Employe FindEmployeDisponible()
+    {
+        return employeDao.FindEmployeDispo();
+    }
+    
+    public List<Medium> FindAllMedium()
+    {
+        return mediumDao.FindAllMedium();
+    }
+    
+    
 }
