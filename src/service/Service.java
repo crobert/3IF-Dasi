@@ -170,32 +170,35 @@ public class Service {
         a.ajouterMedium(MBravo);
         
         b.setReferant(EBravo);
+        EBravo.ajouterClient(b);
         d.ajouterMedium(MCharlie);
         d.ajouterMedium(MDelta);
         
         c.setReferant(ECharlie);
+        ECharlie.ajouterClient(c);
         d.ajouterMedium(MEcho);
         
         d.setReferant(EDelta);
+        EDelta.ajouterClient(d);
         d.ajouterMedium(MEcho);
         d.ajouterMedium(MAlpha);
         
         e.setReferant(EAlpha);
+        EAlpha.ajouterClient(e);
         d.ajouterMedium(MBravo);
         
         f.setReferant(EBravo);
+        EBravo.ajouterClient(f);
         d.ajouterMedium(MCharlie);
         d.ajouterMedium(MDelta);
         
         g.setReferant(ECharlie);
+        ECharlie.ajouterClient(g);
         d.ajouterMedium(MAlpha);
         d.ajouterMedium(MBravo);
         d.ajouterMedium(MCharlie);
         d.ajouterMedium(MDelta);
         d.ajouterMedium(MEcho);
-
-        
-        //TODO: lier des clients à des employés et des mediums à des clients
         
         //Création des objets qui sont liés à d'autres
         CreerMedium(MAlpha);
