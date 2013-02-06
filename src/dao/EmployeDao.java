@@ -41,4 +41,21 @@ public class EmployeDao {
            return (Employe)query.getSingleResult();
        }
    }
+   
+    public Employe FindEmployeDispo ()
+    {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        Query query = em.createQuery("Select e2, COUNT(e2.clients) FROM Employe e2");
+
+
+        return null;
+    }
+   
+    public List<Employe> FindAllEmploye()
+    {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        Query query = em.createQuery("Select e from Employe e");
+
+        return (List<Employe>)query.getResultList();
+    }
 }

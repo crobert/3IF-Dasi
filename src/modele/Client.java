@@ -23,8 +23,7 @@ public class Client implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String numClient;
+    private int numClient;
     private String nom;
     private String prenom;
     private String adresse;
@@ -55,11 +54,25 @@ public class Client implements Serializable{
         this.mediums = new ArrayList<Medium>();
     }
     
+    public Client(String nom, String prenom, String adresse,
+            String mail, GregorianCalendar dateNaissance, String telephone, 
+            String signeAstral, List<Medium> mediums, Employe referent)
+    {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.mail = mail;
+        this.telephone = telephone;
+        this.dateNaissance = dateNaissance;
+        this.signeAstrologique = signeAstral;
+        this.mediums = mediums;
+        this.referant = referent;
+    }
     /**
      * Getters
      */
-    public int getId() {
-        return id;
+    public int getNumClient() {
+        return numClient;
     }
 
     public String getAdresse() {
@@ -98,9 +111,6 @@ public class Client implements Serializable{
         return referant;
     }
 
-    public String getNumClient() {
-        return numClient;
-    }
     
    /**
      * Setters
@@ -142,9 +152,6 @@ public class Client implements Serializable{
         this.referant = referant;
     }
 
-    public void setNumClient(String numClient) {
-        this.numClient = numClient;
-    }
     
    /**
      * Ajoute un medium à la ArrayListe des mediums de ce client

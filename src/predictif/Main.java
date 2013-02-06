@@ -13,7 +13,6 @@ import modele.Medium;
 import modele.Prediction;
 import modele.SigneAstral;
 import service.Service;
-import service.Voyance;
 import util.Saisie;
 
 /**
@@ -27,8 +26,8 @@ public class Main {
      */
     public static void main(String[] args) {
         System.out.println("Création des données en base"); 
-        Service sv = new Service();
-        Voyance s = new Voyance();
+        Service s = new Service();
+        /*
         System.out.println("Création des prédictions");
         sv.CreerPrediction(new Prediction(1, "En ce moment ça ne va pas fort, mais ne vous laissez pas abatre", "Amour"));
         sv.CreerPrediction(new Prediction(1, "Blah blah", "Amour" ));
@@ -81,7 +80,7 @@ public class Main {
         sv.UpdateClient(c);
         
         System.out.println("Fin de la création des medium"); 
-        
+        */
         
         System.out.println("Bienvenu sur le logiciel de voyance");
         Employe employeConnecte = null;
@@ -94,7 +93,7 @@ public class Main {
         int i = 0;
         for (Client clientDeLemploye : lc) {
             i++;
-            System.out.println(clientDeLemploye.getId() +": "+clientDeLemploye.getNom()+" "+clientDeLemploye.getPrenom());
+            System.out.println(clientDeLemploye.getNumClient() +": "+clientDeLemploye.getNom()+" "+clientDeLemploye.getPrenom());
 //            List<Medium> lm = clientDeLemploye.getMediums();
 //            System.out.println("Liste des mediums du client");
 //            for (Medium mediumDuClient : lm) {
@@ -104,7 +103,7 @@ public class Main {
         
         do{
         String numClient = Saisie.lireChaine("Choisissez un numéro de client : ");
-            Client clientRecup = sv.FindClientById(Integer.decode(numClient));
+            Client clientRecup = s.FindClientByNumClient(Integer.decode(numClient));
             System.out.println("Vous avez choisi : "+clientRecup.getNom());
         
         } while (employeConnecte == null);
