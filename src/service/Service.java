@@ -250,7 +250,18 @@ public class Service {
         return true;
     }
     
-    public Client CreerClient(String nom, String prenom, String adresse, String mail, GregorianCalendar date, String telephone, List<Medium> mediums)
+    
+    /**
+     * Création d'un Client par le service clientèle, affectation auto d'un employé et calcul du signe astral
+     * @param nom
+     * @param prenom
+     * @param adresse
+     * @param mail
+     * @param date
+     * @param telephone
+     * @param mediums
+     */
+    public void CreerClient(String nom, String prenom, String adresse, String mail, GregorianCalendar date, String telephone, List<Medium> mediums)
     {
         //Récupérer l'employe avec le minimum de Client
         Employe e = FindEmployeDisponible();
@@ -259,23 +270,56 @@ public class Service {
         Client c = new Client (nom, prenom, adresse, mail, date, telephone, s, mediums, e);
         CreerClient(c);
         UpdateEmploye(e);
-        return null;
     }
     
+    /**
+     * Calcul le signe astrologique à partir du date
+     * @param date
+     * @return la valeur du signe 
+     */
     public String CalculAstro(GregorianCalendar date )
     {
         return signeAstralDao.getSigne(date);
     }
-    
+    /**
+     * Permet de trouver l'employé qui a le moins de client à s'occuper
+     * @return l'employe avec le moins de client
+     */
     public Employe FindEmployeDisponible()
     {
         return employeDao.FindEmployeDispo();
     }
     
+    /**
+     * Récupère une liste de tous les mediums
+     * @return tous les medium
+     */
     public List<Medium> FindAllMedium()
     {
         return mediumDao.FindAllMedium();
     }
     
+     /**
+     * Récupère une liste de tous les clients
+     * @return tous les medium
+     */
+    public List<Client> FindAllClient()
+    {
+        return clientDao.FindAllClient();
+    }
     
+    public List<Prediction> FindAllPrediction(String type)
+    {
+        return predictionDao.getAllPrediction();
+    }
+    
+    public List<Prediction> FindPrediction(String type)
+    {
+        return predictionDao.getPrediction(String type);
+    }
+    
+    public List<Prediction> FindPredictionByGrade(String type, int grade)
+    {
+        return predictionDao.getPredictionByGrade(String type, int grade);
+    }
 }

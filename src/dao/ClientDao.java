@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import modele.Client;
@@ -30,12 +31,19 @@ public class ClientDao {
         return true;
     }
     
-       public Client getClientByNum (int num)
-   {
-       EntityManager em = JpaUtil.obtenirEntityManager();
-       Query query = em.createQuery("Select c from Client c Where c.num = :num");
-       query.setParameter("num", num);
-       return (Client)query.getSingleResult();
-   }
+    public List<Client> FindAllCLient ()
+    {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        Query query = em.createQuery("Select c from Client c");
+        return (List<Client>)query.getResultList();
+    }
+    
+    public Client getClientByNum (int num)
+    {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        Query query = em.createQuery("Select c from Client c Where c.num = :num");
+        query.setParameter("num", num);
+        return (Client)query.getSingleResult();
+    }
     
 }

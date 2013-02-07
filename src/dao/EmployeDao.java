@@ -45,10 +45,8 @@ public class EmployeDao {
     public Employe FindEmployeDispo ()
     {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        Query query = em.createQuery("Select e2, COUNT(e2.clients) FROM Employe e2");
-
-
-        return null;
+        Query query = em.createQuery("Select e From Employe e Order By size(e.clients)");
+        return (Employe) query.getResultList().get(0);
     }
    
     public List<Employe> FindAllEmploye()
