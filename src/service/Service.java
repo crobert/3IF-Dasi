@@ -58,11 +58,19 @@ public class Service {
     } 
     
     public Boolean CreerClient(Client c){
+        
+        //Récupérer l'employe avec le minimum de Client
+        Employe e = FindEmployeDisponible();
+        c.setReferant(e);
+        e.ajouterClient(c);
+        c.setSigneAstrologique(CalculAstro(c.getDateNaissance()));
+        //Créer le client  
         JpaUtil.creerEntityManager();
         JpaUtil.ouvrirTransaction();
         clientDao.Create(c);
         JpaUtil.validerTransaction();
         JpaUtil.fermerEntityManager();
+        UpdateEmploye(e);
         return true;
     }
     
@@ -128,18 +136,18 @@ public class Service {
         CreerPrediction(new Prediction(1, "Ca va pas super", "Sante"));    
         
         //Création des signes astrologiques
-        CreerSigneAstral(new SigneAstral("Verseau", "1"));
-        CreerSigneAstral(new SigneAstral("Poisson", "2"));
-        CreerSigneAstral(new SigneAstral("Belier", "3"));
-        CreerSigneAstral(new SigneAstral("Taureau", "4"));
-        CreerSigneAstral(new SigneAstral("Gemeaux", "5"));
-        CreerSigneAstral(new SigneAstral("Cancer", "6"));
-        CreerSigneAstral(new SigneAstral("Lion", "7"));
-        CreerSigneAstral(new SigneAstral("Vierge", "8"));
-        CreerSigneAstral(new SigneAstral("Balance", "9"));
-        CreerSigneAstral(new SigneAstral("Scorpion", "10"));
-        CreerSigneAstral(new SigneAstral("Sagittaire", "11"));
-        CreerSigneAstral(new SigneAstral("Capricorne", "12"));
+        CreerSigneAstral(new SigneAstral("Verseau", 1));
+        CreerSigneAstral(new SigneAstral("Poisson", 2));
+        CreerSigneAstral(new SigneAstral("Belier", 3));
+        CreerSigneAstral(new SigneAstral("Taureau", 4));
+        CreerSigneAstral(new SigneAstral("Gemeaux", 5));
+        CreerSigneAstral(new SigneAstral("Cancer", 6));
+        CreerSigneAstral(new SigneAstral("Lion", 7));
+        CreerSigneAstral(new SigneAstral("Vierge", 8));
+        CreerSigneAstral(new SigneAstral("Balance", 9));
+        CreerSigneAstral(new SigneAstral("Scorpion", 10));
+        CreerSigneAstral(new SigneAstral("Sagittaire", 11));
+        CreerSigneAstral(new SigneAstral("Capricorne", 12));
         
         //Création des mediums
         Medium MAlpha = new Medium("MAlpha");
@@ -157,13 +165,26 @@ public class Service {
 
 
         //Création des clients
-        Client a = new Client("Janv", "Arianne", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
-        Client b = new Client("Fev", "Berenice", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
-        Client c = new Client("Mar", "Christelle", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
-        Client d = new Client("Avr", "Denise", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
-        Client e = new Client("Mai", "Emilie", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
-        Client f =  new Client("Juin", "Fabienne", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
-        Client g =  new Client("Juil", "Gertrude", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
+        Client a = new Client("Janv", "Arianne", "rue", "mail@mail.fr", new GregorianCalendar(1980, 1, 5), "0600000000");
+        Client b = new Client("Fev", "Berenice", "rue", "mail@mail.fr", new GregorianCalendar(1980, 2, 5), "0600000000");
+        Client c = new Client("Mar", "Christelle", "rue", "mail@mail.fr", new GregorianCalendar(1980, 3, 5), "0600000000" );
+        Client d = new Client("Avr", "Denise", "rue", "mail@mail.fr", new GregorianCalendar(1980, 4, 5), "0600000000" );
+        Client e = new Client("Mai", "Emilie", "rue", "mail@mail.fr", new GregorianCalendar(1980, 5, 5), "0600000000");
+        Client f =  new Client("Juin", "Fabienne", "rue", "mail@mail.fr", new GregorianCalendar(1980, 6, 5), "0600000000");
+        Client g =  new Client("Juil", "Gertrude", "rue", "mail@mail.fr", new GregorianCalendar(1980, 7, 5), "0600000000");
+        
+        CreerEmploye(EAlpha);
+        CreerEmploye(EBravo);
+        CreerEmploye(ECharlie);
+        CreerEmploye(EDelta);
+        
+        CreerClient(a);
+        CreerClient(b);
+        CreerClient(c);
+        CreerClient(d);
+        CreerClient(e);
+        CreerClient(f);
+        CreerClient(g);
         
         a.setReferant(EAlpha);
         EAlpha.ajouterClient(a);
@@ -209,19 +230,19 @@ public class Service {
         CreerMedium(MDelta);
         CreerMedium(MEcho);
         CreerMedium(MFoxtrot);
+       
+        UpdateEmploye(EAlpha);
+        UpdateEmploye(EBravo);
+        UpdateEmploye(ECharlie);
+        UpdateEmploye(EDelta);
         
-        CreerEmploye(EAlpha);
-        CreerEmploye(EBravo);
-        CreerEmploye(ECharlie);
-        CreerEmploye(EDelta);
-        
-        CreerClient(a);
-        CreerClient(b);
-        CreerClient(c);
-        CreerClient(d);
-        CreerClient(e);
-        CreerClient(f);
-        CreerClient(g);
+//        UpdateClient(a);
+//        UpdateClient(b);
+//        UpdateClient(c);
+//        UpdateClient(d);
+//        UpdateClient(e);
+//        UpdateClient(f);
+//        UpdateClient(g);
         
         return true;
     }
@@ -250,28 +271,7 @@ public class Service {
         return true;
     }
     
-    
-    /**
-     * Création d'un Client par le service clientèle, affectation auto d'un employé et calcul du signe astral
-     * @param nom
-     * @param prenom
-     * @param adresse
-     * @param mail
-     * @param date
-     * @param telephone
-     * @param mediums
-     */
-    public void CreerClient(String nom, String prenom, String adresse, String mail, GregorianCalendar date, String telephone, List<Medium> mediums)
-    {
-        //Récupérer l'employe avec le minimum de Client
-        Employe e = FindEmployeDisponible();
-        String s = CalculAstro(date);
-        //Créer le client 
-        Client c = new Client (nom, prenom, adresse, mail, date, telephone, s, mediums, e);
-        CreerClient(c);
-        UpdateEmploye(e);
-    }
-    
+   
     /**
      * Calcul le signe astrologique à partir du date
      * @param date
@@ -279,7 +279,12 @@ public class Service {
      */
     public String CalculAstro(GregorianCalendar date )
     {
-        return signeAstralDao.getSigne(date);
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        String s = signeAstralDao.getSigne(date);
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return s;
     }
     /**
      * Permet de trouver l'employé qui a le moins de client à s'occuper
@@ -287,7 +292,12 @@ public class Service {
      */
     public Employe FindEmployeDisponible()
     {
-        return employeDao.FindEmployeDispo();
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        Employe e = employeDao.FindEmployeDispo();
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return e;
     }
     
     /**
@@ -296,7 +306,12 @@ public class Service {
      */
     public List<Medium> FindAllMedium()
     {
-        return mediumDao.FindAllMedium();
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        List<Medium> lm = mediumDao.FindAllMedium();
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return lm;
     }
     
      /**
@@ -305,21 +320,41 @@ public class Service {
      */
     public List<Client> FindAllClient()
     {
-        return clientDao.FindAllClient();
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        List<Client> lc = clientDao.FindAllCLient();
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return lc;
     }
     
-    public List<Prediction> FindAllPrediction(String type)
+    public List<Prediction> FindAllPrediction()
     {
-        return predictionDao.getAllPrediction();
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        List<Prediction> lp = predictionDao.getAllPrediction();
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return lp;
     }
     
     public List<Prediction> FindPrediction(String type)
     {
-        return predictionDao.getPrediction(String type);
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        List<Prediction> lp = predictionDao.getPrediction(type);
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return lp;
     }
     
     public List<Prediction> FindPredictionByGrade(String type, int grade)
     {
-        return predictionDao.getPredictionByGrade(String type, int grade);
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+        List<Prediction> lp = predictionDao.getPredictionByGrade(type, grade);
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        return lp;
     }
 }

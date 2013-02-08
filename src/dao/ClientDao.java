@@ -41,9 +41,10 @@ public class ClientDao {
     public Client getClientByNum (int num)
     {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        Query query = em.createQuery("Select c from Client c Where c.num = :num");
+        Query query = em.createQuery("Select c from Client c Where c.numClient = :num");
         query.setParameter("num", num);
         return (Client)query.getSingleResult();
     }
+    
     
 }

@@ -56,7 +56,7 @@ public class Client implements Serializable{
     
     public Client(String nom, String prenom, String adresse,
             String mail, GregorianCalendar dateNaissance, String telephone, 
-            String signeAstral, List<Medium> mediums, Employe referent)
+            String signeAstral, Employe referent)
     {
         this.nom = nom;
         this.prenom = prenom;
@@ -65,7 +65,7 @@ public class Client implements Serializable{
         this.telephone = telephone;
         this.dateNaissance = dateNaissance;
         this.signeAstrologique = signeAstral;
-        this.mediums = mediums;
+        //this.mediums = mediums;
         this.referant = referent;
     }
     /**

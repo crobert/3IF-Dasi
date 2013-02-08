@@ -1,6 +1,7 @@
 package modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -24,12 +25,12 @@ public class Employe implements Serializable{
      */
     
     public Employe() {
-//        this.clients = new ArrayList<Client>();
+        this.clients = new ArrayList<Client>();
     }
     
     public Employe(String code) {
         this.code = code;
-//        this.clients = new ArrayList<Client>();
+        this.clients = new ArrayList<Client>();
     }
     
     

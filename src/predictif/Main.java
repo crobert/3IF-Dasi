@@ -27,60 +27,31 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Création des données en base"); 
         Service s = new Service();
-        /*
-        System.out.println("Création des prédictions");
-        sv.CreerPrediction(new Prediction(1, "En ce moment ça ne va pas fort, mais ne vous laissez pas abatre", "Amour"));
-        sv.CreerPrediction(new Prediction(1, "Blah blah", "Amour" ));
-        sv.CreerPrediction(new Prediction(2, "Blah", "Amour"));
-        sv.CreerPrediction(new Prediction(2, "Blah", "Amour"));
-        sv.CreerPrediction(new Prediction(3, "Beaucoup d'amour aujourd'hui", "Amour"));
-        sv.CreerPrediction(new Prediction(3, "Ca va bien bien bien!!", "Travail"));
-        sv.CreerPrediction(new Prediction(2, "Ca va moyen", "Travail"));
-        sv.CreerPrediction(new Prediction(1, "Ca va pas super", "Travail"));
-        sv.CreerPrediction(new Prediction(1, "C'est nul", "Travail"));
-        sv.CreerPrediction(new Prediction(3, "Ca va bien bien bien!!", "Sante"));
-        sv.CreerPrediction(new Prediction(2, "Ca va moyen", "Sante"));
-        sv.CreerPrediction(new Prediction(1, "Ca va pas super", "Sante"));    
+        s.RemplirBase();
         
-        System.out.println("Création des signes astrologiques");
-        sv.CreerSigneAstral (new SigneAstral("Belier", "Mars"));
-        sv.CreerSigneAstral (new SigneAstral("Taureau", "Avril"));
-        sv.CreerSigneAstral (new SigneAstral("Gemeaux", "Mai"));
-        sv.CreerSigneAstral (new SigneAstral("Cancer", "Juin"));
-        sv.CreerSigneAstral (new SigneAstral("Lion", "Juillet"));
-        sv.CreerSigneAstral (new SigneAstral("Vierge", "Août"));
-        sv.CreerSigneAstral (new SigneAstral("Balance", "Septembre"));
-        sv.CreerSigneAstral (new SigneAstral("Scorpion", "Octobre"));
-        sv.CreerSigneAstral (new SigneAstral("Sagittaire", "Novembre"));
-        sv.CreerSigneAstral (new SigneAstral("Capricorne", "Decembre"));
-        sv.CreerSigneAstral (new SigneAstral("Verseau", "Janvier"));
-        sv.CreerSigneAstral (new SigneAstral("Poisson", "Fevrier"));
-
+//        List<Client> lcall = s.FindAllClient();
+//        for (Client c : lcall) {
+//            System.out.println("Voici le client "+c.getNumClient());
+//            System.out.println(c.getDateNaissance().DAY_OF_MONTH+" "+c.getDateNaissance().MONTH);
+//            System.out.println(c.getDateNaissance().getTime());
+//        }
         
         
-        System.out.println("Création des medium"); 
-        Medium m = new Medium("DrT");
-        Employe e = new Employe("zozo");
-        Client c = new Client("ZAZA", "a", "rue", "mail@mail.fr", new GregorianCalendar(), "0600000000" );
-        Medium m2 = new Medium("MagicSpirit");
+        List<Prediction> lcall = s.FindPredictionByGrade("Amour", 1);
+        for (Prediction c : lcall) {
+            System.out.println("Voici l'amour "+c.getContenu());
+        }
         
-        System.out.println("Ajout en base de ces fichiers"); 
-        sv.CreerEmploye(e); 
-        sv.CreerClient(c); 
-        sv.CreerMedium(m); 
+        List<Prediction> ls = s.FindPredictionByGrade("Sante", 2);
+        for (Prediction c : ls) {
+            System.out.println("Voici la sante "+c.getContenu());
+        }
         
-        System.out.println("Affectation d'un client sur un employé"); 
-        c.setReferant(e);
-        e.ajouterClient(c);         
-        sv.UpdateClient(c);
-        sv.UpdateEmploye(e);
+        List<Prediction> lt = s.FindPredictionByGrade("Travail", 3);
+        for (Prediction c : lt) {
+            System.out.println("Voici le travail "+c.getContenu()+" "+c.getValeur());
+        }
         
-        c.ajouterMedium(m);
-        c.ajouterMedium(m2);
-        sv.UpdateClient(c);
-        
-        System.out.println("Fin de la création des medium"); 
-        */
         
         System.out.println("Bienvenu sur le logiciel de voyance");
         Employe employeConnecte = null;
@@ -104,8 +75,12 @@ public class Main {
         do{
         String numClient = Saisie.lireChaine("Choisissez un numéro de client : ");
             Client clientRecup = s.FindClientByNumClient(Integer.decode(numClient));
-            System.out.println("Vous avez choisi : "+clientRecup.getNom());
-        
+            System.out.println("Vous avez choisi : "+clientRecup.getNom()+" "+clientRecup.getPrenom());
+            
+            System.out.println("Voici la liste de ses mediums :");
+            for (Medium mediumDuClient : clientRecup.getMediums()) {
+                System.out.println(mediumDuClient.getNom());
+            }
         } while (employeConnecte == null);
         
     }

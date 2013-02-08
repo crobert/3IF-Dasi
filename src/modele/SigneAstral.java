@@ -17,7 +17,7 @@ public class  SigneAstral implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nom;
-    private String mois;
+    private int mois;
     
     /**
      * Constructeurs
@@ -25,7 +25,7 @@ public class  SigneAstral implements Serializable{
     public SigneAstral() {
     }
 
-    public SigneAstral(String nom, String mois) {
+    public SigneAstral(String nom, int mois) {
         this.nom = nom;
         this.mois = mois;
     }
@@ -34,7 +34,7 @@ public class  SigneAstral implements Serializable{
      * Getters
      */
     
-    public String getMois() {
+    public int getMois() {
         return mois;
     }
 
@@ -46,7 +46,7 @@ public class  SigneAstral implements Serializable{
      * Setters
      */
     
-    public void setMois(String mois) {
+    public void setMois(int mois) {
         this.mois = mois;
     }
 
