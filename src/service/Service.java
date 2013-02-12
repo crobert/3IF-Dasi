@@ -64,12 +64,13 @@ public class Service {
         c.setReferant(e);
         e.ajouterClient(c);
         c.setSigneAstrologique(CalculAstro(c.getDateNaissance()));
-        //Créer le client  
-        JpaUtil.creerEntityManager();
-        JpaUtil.ouvrirTransaction();
-        clientDao.Create(c);
-        JpaUtil.validerTransaction();
-        JpaUtil.fermerEntityManager();
+        
+        //Créer le client, on est en cascade all donc on a pas besoin de creer le client, 
+//        JpaUtil.creerEntityManager();
+//        JpaUtil.ouvrirTransaction();
+//        clientDao.Create(c);
+//        JpaUtil.validerTransaction();
+//        JpaUtil.fermerEntityManager();
         UpdateEmploye(e);
         return true;
     }
@@ -122,32 +123,49 @@ public class Service {
     
     public Boolean RemplirBase(){
        //Création des prédictions
+        
+        //Amour
+        CreerPrediction(new Prediction(3, "Vous avez devant vous une journée très favorable pour prendre une bonne résolution et faire basculer votre vie amoureuse.", "Amour"));
+        
+        CreerPrediction(new Prediction(2, "Discussion en prévision. Vous soulèverez de vraies questions, mais vous n’obtiendrez pas toutes les réponses.", "Amour"));
+        CreerPrediction(new Prediction(2, "Aujourd'hui soyez patient. Attendez votre tour, celui-ci devrait arriver avant la fin de journée. ", "Amour"));
+        
         CreerPrediction(new Prediction(1, "En ce moment ça ne va pas fort, mais ne vous laissez pas abatre", "Amour"));
-        CreerPrediction(new Prediction(1, "Blah blah", "Amour" ));
-        CreerPrediction(new Prediction(2, "Blah", "Amour"));
-        CreerPrediction(new Prediction(2, "Blah", "Amour"));
-        CreerPrediction(new Prediction(3, "Beaucoup d'amour aujourd'hui", "Amour"));
-        CreerPrediction(new Prediction(3, "Ca va bien bien bien!!", "Travail"));
-        CreerPrediction(new Prediction(2, "Ca va moyen", "Travail"));
-        CreerPrediction(new Prediction(1, "Ca va pas super", "Travail"));
-        CreerPrediction(new Prediction(1, "C'est nul", "Travail"));
-        CreerPrediction(new Prediction(3, "Ca va bien bien bien!!", "Sante"));
-        CreerPrediction(new Prediction(2, "Ca va moyen", "Sante"));
-        CreerPrediction(new Prediction(1, "Ca va pas super", "Sante"));    
+        CreerPrediction(new Prediction(1, "Mal dans votre peau, vous ne savez plus vraiment où vous en êtes. Partez quelques jours faire le point.", "Amour" ));
+        CreerPrediction(new Prediction(1, "Vous n’obtiendrez pas tout de suite les réponses à vos questions. Profitez-en pour vous consacrer à vous.", "Amour" ));
+        
+        //Travail
+        CreerPrediction(new Prediction(3, "Continuez comme ça et le futur vous réservera des choses agréables. ", "Travail"));
+        
+        CreerPrediction(new Prediction(2, "Vous avez pris des décisions fermes et ne comptez pas revenir dessus. Vous vous sentez beaucoup mieux.", "Travail"));
+        CreerPrediction(new Prediction(2, "Vous avez des opportunités pour prendre un travail. Ne laissez pas passer votre chance. Réagissez en premier.", "Travail"));
+        
+        CreerPrediction(new Prediction(1, "Les discussions s’éternisent. Tout le monde y va de son avis. Résultat, vous estimez que rien n’avance.", "Travail"));
+        CreerPrediction(new Prediction(1, "Vous avez l'impression que l'on vous a jeté un sort. Tout ce que vous faites est voué à l'échec. Réagissez!", "Travail"));
+        CreerPrediction(new Prediction(1, "Attention à l’impact de Mars, qui pourra parfois vous mettre de mauvaise humeur. Vous ne devez pas vous défouler sur vos collègues sans aucune justification, cela risque de vous nuire gravement dans votre progression de carrière.", "Travail"));
+        
+        //Sante
+        CreerPrediction(new Prediction(3, "Vous vous sentirez vraiment au mieux de votre forme. Pour une fois, vous pourrez compter sur vos nerfs qui ne vous lâcheront pas du tout.", "Sante"));
+        CreerPrediction(new Prediction(3, "Vous bénéficiez d’une formidable endurance et d’une bonne énergie pour accomplir vos tâches quotidiennes.", "Sante"));
+        
+        CreerPrediction(new Prediction(2, "Loin des yeux, mais toujours près du cœur. Vous pensez à des personnes dont vous n’avez plus de nouvelles.", "Sante"));
+        CreerPrediction(new Prediction(2, "T’as de beaux yeux, tu sais. Ah ! Qu’il est bon de recevoir des compliments ! Profitez-en, cela ne durera pas", "Sante"));
+        
+        CreerPrediction(new Prediction(1, "Arrêtez de vous trouver des tas de maladie. Ressaisissez-vous! ", "Sante"));    
         
         //Création des signes astrologiques
-        CreerSigneAstral(new SigneAstral("Verseau", 1));
-        CreerSigneAstral(new SigneAstral("Poisson", 2));
-        CreerSigneAstral(new SigneAstral("Belier", 3));
-        CreerSigneAstral(new SigneAstral("Taureau", 4));
-        CreerSigneAstral(new SigneAstral("Gemeaux", 5));
-        CreerSigneAstral(new SigneAstral("Cancer", 6));
-        CreerSigneAstral(new SigneAstral("Lion", 7));
-        CreerSigneAstral(new SigneAstral("Vierge", 8));
-        CreerSigneAstral(new SigneAstral("Balance", 9));
-        CreerSigneAstral(new SigneAstral("Scorpion", 10));
-        CreerSigneAstral(new SigneAstral("Sagittaire", 11));
-        CreerSigneAstral(new SigneAstral("Capricorne", 12));
+        CreerSigneAstral(new SigneAstral("Verseau", 0));
+        CreerSigneAstral(new SigneAstral("Poisson", 1));
+        CreerSigneAstral(new SigneAstral("Belier", 2));
+        CreerSigneAstral(new SigneAstral("Taureau", 3));
+        CreerSigneAstral(new SigneAstral("Gemeaux", 4));
+        CreerSigneAstral(new SigneAstral("Cancer", 5));
+        CreerSigneAstral(new SigneAstral("Lion", 6));
+        CreerSigneAstral(new SigneAstral("Vierge", 7));
+        CreerSigneAstral(new SigneAstral("Balance", 8));
+        CreerSigneAstral(new SigneAstral("Scorpion", 9));
+        CreerSigneAstral(new SigneAstral("Sagittaire", 10));
+        CreerSigneAstral(new SigneAstral("Capricorne", 11));
         
         //Création des mediums
         Medium MAlpha = new Medium("MAlpha");
@@ -172,12 +190,46 @@ public class Service {
         Client e = new Client("Mai", "Emilie", "rue", "mail@mail.fr", new GregorianCalendar(1980, 5, 5), "0600000000");
         Client f =  new Client("Juin", "Fabienne", "rue", "mail@mail.fr", new GregorianCalendar(1980, 6, 5), "0600000000");
         Client g =  new Client("Juil", "Gertrude", "rue", "mail@mail.fr", new GregorianCalendar(1980, 7, 5), "0600000000");
+           
+        //On ajoute des mediums à des clients
+        a.ajouterMedium(MEcho);
+        a.ajouterMedium(MAlpha);
+        a.ajouterMedium(MBravo);
         
+        b.ajouterMedium(MCharlie);
+        b.ajouterMedium(MDelta);
+        
+        c.ajouterMedium(MEcho);
+        
+        d.ajouterMedium(MEcho);
+        d.ajouterMedium(MAlpha);
+        
+        e.ajouterMedium(MBravo);
+        
+        f.ajouterMedium(MCharlie);
+        f.ajouterMedium(MDelta);
+        
+        g.ajouterMedium(MAlpha);
+        g.ajouterMedium(MBravo);
+        g.ajouterMedium(MCharlie);
+        g.ajouterMedium(MDelta);
+        g.ajouterMedium(MEcho);
+        
+        //On persiste les mediums
+        CreerMedium(MAlpha);
+        CreerMedium(MBravo);
+        CreerMedium(MCharlie);
+        CreerMedium(MDelta);
+        CreerMedium(MEcho);
+        CreerMedium(MFoxtrot);
+ 
+        //On persiste les employés
         CreerEmploye(EAlpha);
         CreerEmploye(EBravo);
         CreerEmploye(ECharlie);
         CreerEmploye(EDelta);
         
+        //On persite les clients
         CreerClient(a);
         CreerClient(b);
         CreerClient(c);
@@ -186,64 +238,7 @@ public class Service {
         CreerClient(f);
         CreerClient(g);
         
-        a.setReferant(EAlpha);
-        EAlpha.ajouterClient(a);
-        a.ajouterMedium(MEcho);
-        a.ajouterMedium(MAlpha);
-        a.ajouterMedium(MBravo);
-        
-        b.setReferant(EBravo);
-        EBravo.ajouterClient(b);
-        d.ajouterMedium(MCharlie);
-        d.ajouterMedium(MDelta);
-        
-        c.setReferant(ECharlie);
-        ECharlie.ajouterClient(c);
-        d.ajouterMedium(MEcho);
-        
-        d.setReferant(EDelta);
-        EDelta.ajouterClient(d);
-        d.ajouterMedium(MEcho);
-        d.ajouterMedium(MAlpha);
-        
-        e.setReferant(EAlpha);
-        EAlpha.ajouterClient(e);
-        d.ajouterMedium(MBravo);
-        
-        f.setReferant(EBravo);
-        EBravo.ajouterClient(f);
-        d.ajouterMedium(MCharlie);
-        d.ajouterMedium(MDelta);
-        
-        g.setReferant(ECharlie);
-        ECharlie.ajouterClient(g);
-        d.ajouterMedium(MAlpha);
-        d.ajouterMedium(MBravo);
-        d.ajouterMedium(MCharlie);
-        d.ajouterMedium(MDelta);
-        d.ajouterMedium(MEcho);
-        
-        //Création des objets qui sont liés à d'autres
-        CreerMedium(MAlpha);
-        CreerMedium(MBravo);
-        CreerMedium(MCharlie);
-        CreerMedium(MDelta);
-        CreerMedium(MEcho);
-        CreerMedium(MFoxtrot);
-       
-        UpdateEmploye(EAlpha);
-        UpdateEmploye(EBravo);
-        UpdateEmploye(ECharlie);
-        UpdateEmploye(EDelta);
-        
-//        UpdateClient(a);
-//        UpdateClient(b);
-//        UpdateClient(c);
-//        UpdateClient(d);
-//        UpdateClient(e);
-//        UpdateClient(f);
-//        UpdateClient(g);
-        
+        System.out.println("Fin du service pour remplir la base");
         return true;
     }
     

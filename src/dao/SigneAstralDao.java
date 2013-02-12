@@ -25,7 +25,7 @@ public class SigneAstralDao {
     {
         EntityManager em = JpaUtil.obtenirEntityManager();
         Query q = em.createQuery("SELECT s.nom FROM SigneAstral s WHERE (:mois = s.mois)");
-        q.setParameter("mois", date.MONTH);
+        q.setParameter("mois", date.get(GregorianCalendar.MONTH));
 
         return (String) q.getSingleResult();
     }

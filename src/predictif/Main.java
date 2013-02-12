@@ -4,14 +4,10 @@
  */
 package predictif;
 
-import java.lang.String;
-import java.util.GregorianCalendar;
 import java.util.List;
 import modele.Client;
 import modele.Employe;
 import modele.Medium;
-import modele.Prediction;
-import modele.SigneAstral;
 import service.Service;
 import util.Saisie;
 
@@ -29,14 +25,18 @@ public class Main {
         Service s = new Service();
         s.RemplirBase();
         
-//        List<Client> lcall = s.FindAllClient();
-//        for (Client c : lcall) {
-//            System.out.println("Voici le client "+c.getNumClient());
-//            System.out.println(c.getDateNaissance().DAY_OF_MONTH+" "+c.getDateNaissance().MONTH);
-//            System.out.println(c.getDateNaissance().getTime());
-//        }
+        //Liste des clients
+        /* 
+        List<Client> lcall = s.FindAllClient();
+        for (Client c : lcall) {
+            System.out.println("Voici le client "+c.getNumClient());
+            System.out.println(c.getDateNaissance().get(GregorianCalendar.MONTH));
+            System.out.println(c.getDateNaissance().getTime());
+        }
+        */
         
-        
+        //Liste des prédictions
+        /*
         List<Prediction> lcall = s.FindPredictionByGrade("Amour", 1);
         for (Prediction c : lcall) {
             System.out.println("Voici l'amour "+c.getContenu());
@@ -51,8 +51,13 @@ public class Main {
         for (Prediction c : lt) {
             System.out.println("Voici le travail "+c.getContenu()+" "+c.getValeur());
         }
+        */
         
         
+        
+        /*****************************************************/
+        //Le vrai début du main
+        /*****************************************************/
         System.out.println("Bienvenu sur le logiciel de voyance");
         Employe employeConnecte = null;
         do{
@@ -85,5 +90,7 @@ public class Main {
         
     }
     
-    
+        /*****************************************************/
+        //La fin du main
+        /*****************************************************/
 }
